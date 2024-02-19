@@ -1,7 +1,7 @@
 
 const urlService = require('../services/urlService');
 
-exports.shortenURL = async (req, res) => {
+exports.shortenUrl = async (req, res) => {
     try {
         const { longUrl } = req.body; 
         const shortenedUrl = await urlService.shortenUrl(longUrl);
