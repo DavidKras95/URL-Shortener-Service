@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const userRoutes = require("./src/routes/routes");
+// import { nanoid } from 'nanoid';
 
 const app = express();
 
@@ -13,7 +15,8 @@ mongoose
 
 
 const PORT = process.env.PORT || 3000;
-
+app.use(express.json());
+app.use("/", userRoutes);
 
 
 app.get('/', (req, res)=>{ 

@@ -4,7 +4,8 @@ const router = express.Router();
 
 
 router.post("/shortenUrl", UrlController.shortenUrl);
-router.get("/getLongUrl/:shortUrl", UrlController.redirectURL);
+// router.get("/getLongUrl/:shortUrl", UrlController.redirectURL);
+router.get("/getLongUrl", UrlController.redirectURL);
 
 
 
