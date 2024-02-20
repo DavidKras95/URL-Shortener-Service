@@ -7,7 +7,8 @@ const Url = require('../models/url');
 const redisClient = require('../utils/redisClient');
 
 exports.createShortenUrl = async (longUrl) => {
-    const shortId = nanoid(7);
+    //Generate unique + casting the env to Integer
+    const shortId = nanoid(process.env.NUMBER_OF_UNIQUE, 10); 
     let shortUrl = `${process.env.BASE_URL}/${shortId}`;
     await Url.create({
          id: shortId,
@@ -45,7 +46,7 @@ exports.checkIfAlreadyExists = async (longUrl) => {
     const mongoResult = await Url.findOne({ longUrl : longUrl });
     if (mongoResult){
         await redisClient.set(mongoResult.id, mongoResult.longUrl);
-        return mongoResult.longUrl ;
+        return mongoResult.shortUrl ;
     } 
     return null;
 };

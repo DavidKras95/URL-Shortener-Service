@@ -4,7 +4,7 @@ exports.shortenUrl = async (req, res) => {
     try {
         const { longUrl } = req.body;
         const alreadyExists = await urlService.checkIfAlreadyExists(longUrl);
-        if(alreadyExists) res.status(404).json({ error: 'URL already exists' });
+        if(alreadyExists) res.status(404).json({ error: 'URL already exists' , shortenedUrl: alreadyExists });
         else{
             const shortenedUrl = await urlService.createShortenUrl(longUrl);
             res.json({ shortenedUrl });
@@ -16,12 +16,13 @@ exports.shortenUrl = async (req, res) => {
 
 exports.redirectURL = async (req, res) => {
     try {
-        const { shortUrl } = req.body;
+        const { shortUrl } = req.params; 
         const id = await urlService.extractIdFromShortUrl(shortUrl);
         const longUrl = await urlService.fetchData(id);
-        if (longUrl) res.json({ longUrl: longUrl });
+        if (longUrl) res.redirect(longUrl);
         else res.status(404).json({ error: 'URL not found' });
     } catch (error) {
         res.status(404).json({ error: 'URL not found' });
     }
 };
+

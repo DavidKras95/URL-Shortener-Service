@@ -2,10 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./src/routes/routes");
-// import { nanoid } from 'nanoid';
 
 const app = express();
-
 
 const dbURI = process.env.MONGODB_URI;
 mongoose
@@ -13,24 +11,19 @@ mongoose
   .then((result) => console.log("Connected to db"))
   .catch((err) => console.log(err));
 
-
 const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 app.use("/", userRoutes);
+app.use(express.static('public')); // Serve static files from the public directory
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/src/view/view.html'); // Serve the view.html file
+});
 
-app.get('/', (req, res)=>{ 
-    res.status(200); 
-    res.send("Welcome to root URL of Server"); 
-}); 
-
-
-
-app.listen(PORT, (error) =>{ 
-    if(!error) 
-        console.log(`Server is Successfully Running, and App is listening on port ${PORT}`) 
-    else 
-        console.log("Error occurred, server can't start", error); 
-    } 
-); 
-  
+app.listen(PORT, (error) => {
+    if (!error)
+        console.log(`Server is Successfully Running, and App is listening on port ${PORT}`)
+    else
+        console.log("Error occurred, server can't start", error);
+});
