@@ -18,8 +18,6 @@ exports.shortenUrl = async (req, res) => {
 
 exports.redirectURL = async (req, res) => {
     try {
-        console.log('redirect')
-        //add middleware validate url
         const { shortUrl } = req.params; 
         const id = await urlService.extractIdFromShortUrl(shortUrl);
         const longUrl = await urlService.fetchData(id);
