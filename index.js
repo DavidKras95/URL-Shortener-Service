@@ -15,15 +15,18 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use("/", userRoutes);
-app.use(express.static('public')); // Serve static files from the public directory
+app.use(express.static("public")); // Serve static files from the public directory
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/src/view/view.html'); // Serve the view.html file
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/src/view/view.html"); // Serve the view.html file
 });
 
 app.listen(PORT, (error) => {
-    if (!error)
-        console.log(`Server is Successfully Running, and App is listening on port ${PORT}`)
-    else
-        console.log("Error occurred, server can't start", error);
+  if (!error) {
+    console.log(
+      `Server is Successfully Running, and App is listening on port ${PORT}`
+    );
+  } else {
+    console.log("Error occurred, server can't start", error);
+  }
 });
