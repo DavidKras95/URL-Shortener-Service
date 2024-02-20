@@ -50,6 +50,8 @@ Nginx is used for load balancing between multiple server instances, while Docker
 
 ### Containerized Scalable Deployment
 
+Make sure Docker daemon is running on you machine
+
 - In terminal run
     ```bash
     docker-compose up -d
