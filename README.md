@@ -8,11 +8,11 @@ Nginx is used for load balancing between multiple server instances, while Docker
 
 ## Tech Stack
 
-- *Node.js:* Server-side runtime environment for executing JavaScript code.
-- *Redis:* In-memory data structure store, acting as a cache to improve response times
-- *MongoDB:* NoSQL database for storing and managing URL data
-- *Nginx:* Web server reverse proxy that is used for load balancing to distribute incoming traffic
-- *Docker:* Containerization technology for deploying applications in isolated environments
+- **Node.js:* Server-side runtime environment for executing JavaScript code.
+- **Redis:* In-memory data structure store, acting as a cache to improve response times
+- **MongoDB:* NoSQL database for storing and managing URL data
+- **Nginx:* Web server reverse proxy that is used for load balancing to distribute incoming traffic
+- **Docker:* Containerization technology for deploying applications in isolated environments
 
 ## Usage
 
