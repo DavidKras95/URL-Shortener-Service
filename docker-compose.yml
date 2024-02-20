@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nginx/conf:/etc/nginx:ro
+
+  nodejs1:
+    build: .
+    environment:
+      - PORT=3001
+    ports:
+      - "3001:3000"
+
+  nodejs2:
+    build: .
+    environment:
+      - PORT=3002
+    ports:
+      - "3002:3000"

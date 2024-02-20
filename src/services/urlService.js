@@ -1,25 +1,31 @@
 let nanoid = null;
+
+// Check
 import('nanoid').then(module => {
     nanoid = module.nanoid;
 });
 
-const Url = require('../models/url');
+const urlModel = require('../models/url');
 const redisClient = require('../utils/redisClient');
 
 exports.createShortenUrl = async (longUrl) => {
     //Generate unique + casting the env to Integer
     const shortId = nanoid(process.env.NUMBER_OF_UNIQUE, 10); 
+
+    // check if ID is exsits 
     let shortUrl = `${process.env.BASE_URL}${process.env.NGINX_DISPLAY_PORT}/${shortId}`;
-    await Url.create({
+    await urlModel.create({
          id: shortId,
          longUrl: longUrl,
          shortUrl: shortUrl,
          date: new Date() });
-    await redisClient.set(shortId, longUrl, shortUrl);
+     await redisClient.set(shortId, longUrl);
+    //await redisClient.set(shortUrl, longUrl);
     return shortUrl;
 };
 
 exports.fetchData = async (id) => {
+    //change to short url
     let longUrlRedis = await redisClient.get(id);
     if (!longUrlRedis) {
         const mongoResult = await Url.findOne({ id : id });
@@ -43,7 +49,7 @@ exports.extractIdFromShortUrl = async (shortUrl) => {
 };
 
 exports.checkIfAlreadyExists = async (longUrl) => {
-    const mongoResult = await Url.findOne({ longUrl : longUrl });
+    const mongoResult = await urlModel.findOne({ longUrl : longUrl });
     if (mongoResult){
         await redisClient.set(mongoResult.id, mongoResult.longUrl);
         return mongoResult.shortUrl ;
