@@ -9,7 +9,7 @@ const redisClient = require('../utils/redisClient');
 exports.createShortenUrl = async (longUrl) => {
     //Generate unique + casting the env to Integer
     const shortId = nanoid(process.env.NUMBER_OF_UNIQUE, 10); 
-    let shortUrl = `${process.env.BASE_URL}/${shortId}`;
+    let shortUrl = `${process.env.BASE_URL}${process.env.NGINX_DISPLAY_PORT}/${shortId}`;
     await Url.create({
          id: shortId,
          longUrl: longUrl,
